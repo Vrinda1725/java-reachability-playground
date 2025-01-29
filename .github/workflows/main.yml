@@ -10,6 +10,7 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: ls
+        if: always()
         run: |
           ls 
           ls .unzipped
