@@ -12,7 +12,6 @@ jobs:
       - name: ls
         if: always()
         run: |
-          ls 
-          ls .unzipped
+          ls unzipped
           ls .tmp
   
