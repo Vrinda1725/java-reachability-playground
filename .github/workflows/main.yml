@@ -13,5 +13,5 @@ jobs:
         if: always()
         run: |
           ls unzipped
-          ls .tmp
+          ls /tmp
   
