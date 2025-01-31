@@ -46,7 +46,8 @@ jobs:
 
 
 ### Snyk UI
-![image](https://github.com/user-attachments/assets/afe91173-93a7-442c-bc1f-64e286f7a0c4)
+![image](https://github.com/user-attachments/assets/4feaa2f5-bae6-465e-9316-8b35a7bcd8b4)
+
 
 
 
