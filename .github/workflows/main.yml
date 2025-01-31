@@ -1,11 +1,18 @@
-name: Example workflow for Maven using Snyk
-on: push
+name: Example workflow for Maven using Snyk  # Defines the name of the workflow
+
+on: push  
+
 jobs:
   security:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest 
+
     steps:
-      - uses: actions/checkout@master
-      - name: RunSnyk to check for vulnerabilities
-        uses: snyk/actions/maven@master
+        # Checks out the repository code so that the workflow can access it
+      - name: Checkout Repository
+        uses: actions/checkout@master  
+        
+        # Runs the Snyk security scan for Maven dependencies
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master  
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Uses the Snyk authentication token stored in GitHub Secrets
