@@ -10,24 +10,27 @@ Whenever a push is made to the repository, the workflow runs a security check to
 ### **GitHub Actions Workflow**
 
 ```yaml
-name: Example workflow for Maven using Snyk
-on: push
+name: Example workflow for Maven using Snyk  # Defines the name of the workflow
+
+on: push  
+
 jobs:
   security:
-    runs-on: ubuntu-latest
-    steps:
-        # Checks out the repository code
-      - name: Checkout Repository
-        uses: actions/checkout@master
+    runs-on: ubuntu-latest 
 
-        # Runs Snyk security scan on Maven dependencies
+    steps:
+        # Checks out the repository code so that the workflow can access it
+      - name: Checkout Repository
+        uses: actions/checkout@master  
+        
+        # Runs the Snyk security scan for Maven dependencies
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven@master  
         env:
-          [SNYK_TOKEN]: ${{ secrets.[SNYK_TOKEN] }}  # Uses a secret token for Snyk authentication
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Uses the Snyk authentication token stored in GitHub Secrets
 ```
 ### **Inputs**
-- SNYK_TOKEN: [Snyk Website](https://snyk.io)
+- Create [Snyk Token](https://snyk.io)
 
 ### **How It Works**
 - The workflow runs **automatically on every push** to check for security vulnerabilities in Maven dependencies.
