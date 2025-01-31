@@ -24,10 +24,10 @@ jobs:
       - name: Run Snyk to check for vulnerabilities
         uses: snyk/actions/maven@master  
         env:
-          [SNYK_TOKEN](https://snyk.io): ${{ secrets.[SNYK_TOKEN](https://snyk.io) }}  # Uses a secret token for Snyk authentication
+          [SNYK_TOKEN]: ${{ secrets.[SNYK_TOKEN] }}  # Uses a secret token for Snyk authentication
 ```
 ### **Inputs**
-- SNYK_TOKEN: https://snyk.io
+- SNYK_TOKEN: [Snyk Website](https://snyk.io)
 
 ### **How It Works**
 - The workflow runs **automatically on every push** to check for security vulnerabilities in Maven dependencies.
@@ -38,8 +38,11 @@ jobs:
 ## Screenshots
 
 ### CLI
-![Snyk CLI Reachable Vulnerabilities](CLI_reachable.png)
+![image](https://github.com/user-attachments/assets/9a39fa82-8809-41de-bffe-fdcf19a4dd85)
+
 
 ### Snyk UI
-![Snyk UI Reachable Vulnerabilities](UI_reachable.png)
+![image](https://github.com/user-attachments/assets/afe91173-93a7-442c-bc1f-64e286f7a0c4)
+
+
 
