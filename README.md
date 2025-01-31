@@ -30,7 +30,7 @@ jobs:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Uses the Snyk authentication token stored in GitHub Secrets
 ```
 ### **Inputs**
-- Create [Snyk Token](https://snyk.io)
+- [Snyk Token](https://snyk.io) is being passed.
 
 ### **How It Works**
 - The workflow runs **automatically on every push** to check for security vulnerabilities in Maven dependencies.
