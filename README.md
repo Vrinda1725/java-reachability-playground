@@ -3,19 +3,6 @@
 This is an intentionally vulnerable application. It was purposely designed to demonstrate the capabilities of Snyk's Reachable
 Vulnerabilities feature and includes both a "Reachable" vulnerability (with a direct data flow to the vulnerable function) and a "Potentially Reachable" vulnerability (where only partial data exists for determining reachability).
 
-
-## Included vulnerabilities
-### [Arbitrary File Write via Archive Extraction](https://app.snyk.io/vuln/SNYK-JAVA-ORGND4J-72550)
-An exploit is using a vulnerability called [ZipSlip](https://snyk.io/research/zip-slip-vulnerability) - a critical vulnerability discovered 
-by Snyk, which typically results in remote command execution. As part of the exploit, a special zip archive is 
-crafted (attached as `malicious_file.zip`). When this file is extracted by a vulnerable function, it will create a file 
-called `good.txt` in the folder `unzipped`, but it will also create a file called `evil.txt` in the `/tmp/` folder. 
-This example is not dangerous, of course, but demonstrates the risk the vulnerability poses - imagine overwriting `.ssh/authorized_keys` or another sensitive file.
-
-### [Deserialization of Untrusted Data](https://app.snyk.io/vuln/SNYK-JAVA-COMMONSCOLLECTIONS-472711)
-This vulnerability is not exploited. It demonstrates potentially vulnerable code, for which data about vulnerable functions
-is not available.
-
 ## How to run the demo (Maven)
 1. Checkout this repository (`git checkout git@github.com:snyk/java-reachability-playground.git`)
 2. Install all the dependencies (`mvn install`)
@@ -24,13 +11,33 @@ is not available.
 5. Run snyk command with Reachable Vulnerabilities flag (`snyk test --reachable` or `snyk monitor --reachable`); you should see the vulnerability `SNYK-JAVA-ORGND4J-72550` marked as reachable
 and the function call path to the vulnerability
 
-## For Gradle 
-1. Make sure you build the artifacts with `./gradlew build`
-2. To see test results run `snyk test --file=build.gradle --reachable` or monitor: `snyk monitor --file=build.gradle --reachable`
----
+## GitHub Actions Integration: Snyk Security Scanning
+This repository is integrated with **GitHub Actions** to automatically scan for vulnerabilities in Maven dependencies using Snyk.
+Whenever a push is made to the repository, the workflow runs a security check to detect potential risks.
 
-*Note: Once the java application is run, `malicious_file.zip` will be deleted by it. To run it again, run `git checkout .` prior
-to next java run.*
+### **GitHub Actions Workflow**
+
+```yaml
+name: Example workflow for Maven using Snyk
+on: push
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@master  # Checks out the repository code
+      
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/maven@master  # Runs Snyk security scan on Maven dependencies
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Uses a secret token for Snyk authentication
+```
+
+### **How It Works**
+- The workflow runs **automatically on every push** to check for security vulnerabilities in Maven dependencies.
+- It **retrieves the repository code** so that Snyk can analyze the dependencies.
+- The **Snyk Maven Action** (`snyk/actions/maven@master`) scans the `pom.xml` file for known vulnerabilities.
+- The scan results are displayed in **GitHub Actions logs** and can be further analyzed using **Snyk UI**.
 
 ## Screenshots
 
@@ -39,3 +46,4 @@ to next java run.*
 
 ### Snyk UI
 ![Snyk UI Reachable Vulnerabilities](UI_reachable.png)
+
