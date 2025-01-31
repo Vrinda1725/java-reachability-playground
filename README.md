@@ -35,7 +35,8 @@ jobs:
 ### **How It Works**
 - The workflow runs **automatically on every push** to check for security vulnerabilities in Maven dependencies.
 - It **retrieves the repository code** so that Snyk can analyze the dependencies.
-- The **Snyk Maven Action** (`snyk/actions/maven@master`) scans the `pom.xml` file for known vulnerabilities.
+- The **Snyk Maven Action** (`snyk/actions/maven@master`) scans the `pom.xml` file for known vulnerabilities and Critical 
+  Severity **(Zip Slip)**.
 - The scan results are displayed in **GitHub Actions logs** and can be further analyzed using **Snyk UI**.
 
 ## Screenshots
