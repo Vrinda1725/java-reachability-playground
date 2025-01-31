@@ -16,14 +16,18 @@ jobs:
   security:
     runs-on: ubuntu-latest
     steps:
+        # Checks out the repository code
       - name: Checkout Repository
-        uses: actions/checkout@master  # Checks out the repository code
-      
+        uses: actions/checkout@master
+
+        # Runs Snyk security scan on Maven dependencies
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master  # Runs Snyk security scan on Maven dependencies
+        uses: snyk/actions/maven@master  
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Uses a secret token for Snyk authentication
+          [SNYK_TOKEN](https://snyk.io): ${{ secrets.[SNYK_TOKEN](https://snyk.io) }}  # Uses a secret token for Snyk authentication
 ```
+### **Inputs**
+- SNYK_TOKEN: https://snyk.io
 
 ### **How It Works**
 - The workflow runs **automatically on every push** to check for security vulnerabilities in Maven dependencies.
