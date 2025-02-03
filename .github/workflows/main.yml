@@ -1,18 +1,39 @@
-name: Example workflow for Maven using Snyk  # Defines the name of the workflow
+name: Snyk Security Scan
 
-on: push  
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
 jobs:
   security:
-    runs-on: ubuntu-latest 
+    runs-on: ubuntu-latest
 
     steps:
-        # Checks out the repository code so that the workflow can access it
       - name: Checkout Repository
-        uses: actions/checkout@master  
-        
-        # Runs the Snyk security scan for Maven dependencies
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18  # Change this based on your project requirements
+
+      - name: Install Dependencies
+        run: npm install  # Ensures all dependencies, including lodash, are installed
+
       - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/maven@master  
+        uses: snyk/actions/node@master
+        with:
+          command: test
         env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Uses the Snyk authentication token stored in GitHub Secrets
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  # Ensure this secret is set in GitHub
+
+      - name: Monitor project with Snyk
+        uses: snyk/actions/node@master
+        with:
+          command: monitor
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
